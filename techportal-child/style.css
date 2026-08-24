@@ -1,0 +1,74 @@
+/*
+ Theme Name:   Tech Portal Child
+ Theme URI:    https://techportal.27.jugaar.ai
+ Description:  Tech Portal Pakistan - Child theme for ColorMag
+ Author:       Tech Portal Team
+ Template:     colormag
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ Text Domain:  techportal-child
+*/
+
+:root {
+    --brand-primary: #37215F;
+    --brand-secondary: #0881BE;
+    --brand-accent: #F14E32;
+    --brand-success: #1E8449;
+    --dark-bg: #1A1A2E;
+}
+
+body {
+    background-color: var(--dark-bg);
+}
+
+.site-title a {
+    color: #fff;
+}
+
+.site-description {
+    color: #ddd;
+}
+
+.main-navigation ul li a {
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.main-navigation ul li a:hover {
+    color: var(--brand-accent);
+}
+
+.main-navigation ul li.current-menu-item a {
+    color: var(--brand-accent);
+}
+
+.entry-title a:hover {
+    color: var(--brand-primary);
+}
+
+.read-more-btn {
+    background-color: var(--brand-primary);
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.read-more-btn:hover {
+    background-color: var(--brand-secondary);
+}
+
+.nav-links .current {
+    background: var(--brand-primary);
+}
+
+.nav-links a {
+    color: var(--brand-primary);
+}
+
+.nav-links a:hover {
+    background: var(--brand-secondary);
+    color: #fff;
+}
+

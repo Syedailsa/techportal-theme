@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+vendor/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# WordPress
+*.sql
+*.sql.gz
+wp-config.php
+.htaccess
+
+# Build artifacts
+dist/
+build/
+*.map
