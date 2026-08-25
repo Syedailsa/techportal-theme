@@ -1,17 +1,49 @@
 <?php
 /**
- * Tech Portal Child Theme Functions v2.0
- * Dark gradient theme with animations
+ * Tech Portal Child Theme Functions v2.1
+ * Dark gradient theme with animations - iframe support
  */
 
 // Enqueue parent and child theme styles
 function techportal_child_enqueue_styles() {
     wp_enqueue_style('google-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap', array(), null);
     wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');
-    wp_enqueue_style('child-style', get_stylesheet_directory_uri() . '/style.css', array('parent-style'), '2.0.0');
-    wp_enqueue_script('techportal-animations', get_stylesheet_directory_uri() . '/animations.js', array(), '2.0.0', true);
+    wp_enqueue_style('child-style', get_stylesheet_directory_uri() . '/style.css', array('parent-style'), '2.1.0');
+    wp_enqueue_script('techportal-animations', get_stylesheet_directory_uri() . '/animations.js', array(), '2.1.0', true);
 }
 add_action('wp_enqueue_scripts', 'techportal_child_enqueue_styles');
+
+// Allow iframes in post content (YouTube embeds)
+function techportal_allow_iframes($allowedtags) {
+    if (isset($allowedtags['div'])) {
+        $allowedtags['div']['style'] = true;
+    }
+    if (!isset($allowedtags['iframe'])) {
+        $allowedtags['iframe'] = array(
+            'src' => true,
+            'width' => true,
+            'height' => true,
+            'frameborder' => true,
+            'allowfullscreen' => true,
+            'loading' => true,
+            'title' => true,
+            'allow' => true,
+            'style' => true,
+        );
+    } else {
+        $allowedtags['iframe']['src'] = true;
+        $allowedtags['iframe']['width'] = true;
+        $allowedtags['iframe']['height'] = true;
+        $allowedtags['iframe']['frameborder'] = true;
+        $allowedtags['iframe']['allowfullscreen'] = true;
+        $allowedtags['iframe']['loading'] = true;
+        $allowedtags['iframe']['title'] = true;
+        $allowedtags['iframe']['allow'] = true;
+        $allowedtags['iframe']['style'] = true;
+    }
+    return $allowedtags;
+}
+add_filter('wp_kses_allowed_html', 'techportal_allow_iframes', 10, 1);
 
 // Custom logo support
 function techportal_custom_logo_setup() {
@@ -24,7 +56,7 @@ function techportal_custom_logo_setup() {
 }
 add_action('after_setup_theme', 'techportal_custom_logo_setup');
 
-// Add custom header footer with floating characters
+// Add floating characters
 function techportal_floating_elements() {
     if (is_front_page() || is_home()) {
         ?>
@@ -110,7 +142,7 @@ function techportal_newsletter_box() {
 }
 add_action('wp_footer', 'techportal_newsletter_box');
 
-// Add live indicator to navigation
+// Add live indicator
 function techportal_live_indicator() {
     $api_key = get_option('techportal_youtube_api_key', '');
     $channel_id = get_option('techportal_youtube_channel_id', '');
@@ -125,3 +157,13 @@ function techportal_live_indicator() {
     }
 }
 add_action('wp_body_open', 'techportal_live_indicator');
+
+// Fix wpautop for iframes - prevent <p> tags around iframes
+function techportal_fix_iframe_wpautop($content) {
+    $pattern = '/<p>\s*(<iframe[^>]*>.*?<\/iframe>)\s*<\/p>/i';
+    $replacement = '$1';
+    $content = preg_replace($pattern, $replacement, $content);
+    return $content;
+}
+add_filter('the_content', 'techportal_fix_iframe_wpautop', 99);
+add_filter('the_excerpt', 'techportal_fix_iframe_wpautop', 99);
