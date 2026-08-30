@@ -1185,6 +1185,183 @@ img {
 .video-grid .video-card:nth-child(4) { transition-delay: 0.18s; }
 
 /* ============================================
+   PAGE LAYOUTS (About, Contact, Policies)
+   ============================================ */
+.page-hero {
+  padding: var(--space-16) 0 var(--space-10);
+  text-align: center;
+  border-bottom: 1px solid var(--border-subtle);
+  background: linear-gradient(180deg, rgba(0,212,170,0.03) 0%, transparent 100%);
+}
+
+.page-hero-inner {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.page-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-lg);
+  background: var(--accent-glow);
+  color: var(--accent);
+  margin-bottom: var(--space-6);
+}
+
+.page-hero h1 {
+  font-size: var(--text-3xl);
+  font-weight: 800;
+  margin-bottom: var(--space-4);
+  color: var(--text-primary);
+}
+
+.page-subtitle {
+  font-size: var(--text-base);
+  color: var(--text-secondary);
+}
+
+.page-content-section {
+  padding: var(--space-12) 0;
+}
+
+/* Info Card Grid */
+.info-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+.info-card {
+  background: var(--bg-card);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  padding: var(--space-8);
+  transition: all var(--transition-base);
+}
+
+.info-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.info-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-5);
+}
+
+.info-card h3 {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.info-card p {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.info-card-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-3) 0 0;
+}
+
+.info-card-list li {
+  position: relative;
+  padding: var(--space-2) 0 var(--space-2) var(--space-6);
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.info-card-list li:last-child {
+  border-bottom: none;
+}
+
+.info-card-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.info-card-list-ordered {
+  counter-reset: item;
+}
+
+.info-card-list-ordered li {
+  counter-increment: item;
+}
+
+.info-card-list-ordered li::before {
+  content: counter(item);
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--bg-primary);
+  font-size: 11px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-card-contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.contact-email {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+  padding: var(--space-3) var(--space-5);
+  background: var(--accent-glow);
+  border: 1px solid rgba(0,212,170,0.3);
+  border-radius: var(--radius-sm);
+  color: var(--accent);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  transition: all var(--transition-fast);
+}
+
+.contact-email:hover {
+  background: rgba(0,212,170,0.2);
+  border-color: var(--accent);
+  color: var(--accent-hover);
+}
+
+.contact-card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+/* Page-specific video template */
+.page-content-section .video-grid {
+  margin-top: var(--space-6);
+}
+
+/* ============================================
    RESPONSIVE
    ============================================ */
 @media (max-width: 1024px) {
@@ -1257,6 +1434,19 @@ img {
 
   .card-grid {
     grid-template-columns: 1fr;
+  }
+
+  .info-card-grid,
+  .contact-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .page-hero {
+    padding: var(--space-10) 0 var(--space-8);
+  }
+
+  .page-hero h1 {
+    font-size: var(--text-2xl);
   }
 
   .card-grid-2 {
