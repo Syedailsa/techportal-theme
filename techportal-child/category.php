@@ -1,16 +1,14 @@
 <?php
 /**
- * Category Template - Card Layout
+ * Category Template - Card Layout with Images
  */
 get_header();
 
-// Get category info
 $term = get_queried_object();
 $category_name = single_cat_title('', false);
 $category_description = category_description();
 $category_slug = $term->slug;
 
-// Map category slug to tag class
 $tag_classes = array(
     'it-news' => 'tag-it',
     'startups' => 'tag-startup',
@@ -20,7 +18,6 @@ $tag_classes = array(
 );
 $tag_class = $tag_classes[$category_slug] ?? 'tag-it';
 
-// Category icons
 $category_icons = array(
     'it-news' => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>',
     'startups' => '<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
@@ -53,19 +50,18 @@ $icon = $category_icons[$category_slug] ?? $category_icons['it-news'];
         <div class="card-grid">
             <?php while (have_posts()) : the_post(); ?>
             <article class="article-card animate-on-scroll">
-                <?php if (has_post_thumbnail()) : ?>
                 <div class="card-image">
-                    <a href="<?php the_permalink(); ?>">
-                        <?php the_post_thumbnail('medium_large'); ?>
-                    </a>
+                    <?php if (has_post_thumbnail()) : ?>
+                        <a href="<?php the_permalink(); ?>">
+                            <?php the_post_thumbnail('medium_large', array('loading' => 'lazy')); ?>
+                        </a>
+                    <?php else : ?>
+                        <div style="width:100%;height:100%;background:linear-gradient(135deg, #1E2440, #1A1F36);display:flex;align-items:center;justify-content:center;">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3B4575" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                        </div>
+                    <?php endif; ?>
                     <span class="card-badge section-tag <?php echo esc_attr($tag_class); ?>"><?php echo esc_html($category_name); ?></span>
                 </div>
-                <?php else : ?>
-                <div class="card-image" style="background:linear-gradient(135deg, #1E2440, #1A1F36);display:flex;align-items:center;justify-content:center;">
-                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3B4575" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-                    <span class="card-badge section-tag <?php echo esc_attr($tag_class); ?>"><?php echo esc_html($category_name); ?></span>
-                </div>
-                <?php endif; ?>
                 <div class="card-body">
                     <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
                     <p><?php echo wp_trim_words(get_the_excerpt(), 18); ?></p>
@@ -78,7 +74,6 @@ $icon = $category_icons[$category_slug] ?? $category_icons['it-news'];
             <?php endwhile; ?>
         </div>
 
-        <!-- Pagination -->
         <div class="pagination-wrap">
             <?php
             the_posts_pagination(array(
