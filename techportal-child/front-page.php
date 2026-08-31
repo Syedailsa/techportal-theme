@@ -33,9 +33,11 @@ function render_article_card($article, $tag_class = 'tag-it') {
     $output = '<article class="article-card animate-on-scroll" onclick="window.open(\'' . $url . '\', \'_blank\')">';
     $output .= '<div class="card-image">';
     if ($image) {
-        $output .= '<img src="' . $image . '" alt="' . $title . '" loading="lazy" onerror="this.parentElement.innerHTML=\'<svg width=40 height=40 viewBox=&quot;0 0 24 24&quot; fill=none stroke=&quot;#3B4575&quot; stroke-width=1.5><rect x=3 y=3 width=18 height=18 rx=2/><circle cx=8.5 cy=8.5 r=1.5/><path d=&quot;M21 15l-5-5L5 21&quot;/></svg><span class=card-badge>' . $source . '</span>\'">';
+        $output .= '<img src="' . $image . '" alt="' . $title . '" loading="lazy">';
     } else {
+        $output .= '<div class="card-placeholder">';
         $output .= '<svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#3B4575" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>';
+        $output .= '</div>';
     }
     $output .= '<span class="card-badge">' . $source . '</span>';
     $output .= '</div>';
